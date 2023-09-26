@@ -1,0 +1,1 @@
+"SAP CPI", "SAP CDP", "SAP CDC", "Python", "Groovy", "Practica empresarial", "Keyrus", "Keyrus S.A.S", "Keyrus S.A.S Colombia"
