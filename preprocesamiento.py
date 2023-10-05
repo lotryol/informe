@@ -8,6 +8,7 @@ import string
 import numpy as np
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
+from sklearn.metrics.pairwise import cosine_similarity
 
 # Descargar recursos de NLTK si no están disponibles
 nltk.download("punkt")
@@ -88,3 +89,16 @@ print("\nSecuencias de Índices:")
 print(sequences)
 print("\nSecuencias de Índices con Padding:")
 print(padded_sequences)
+
+# Leer palabras clave desde un archivo de texto
+with open("keywords/keywords.txt", "r", encoding="utf-8") as file:
+    keywords = file.read().lower().split(',')
+
+# Calcular la similitud de coseno entre las palabras clave y las secuencias de índices
+keyword_sequences = tokenizer.texts_to_sequences(keywords)
+keyword_padded_sequences = pad_sequences(keyword_sequences, maxlen=max_seq_length, padding="post", truncating="post")
+cosine_similarities = cosine_similarity(keyword_padded_sequences, padded_sequences)
+
+# Imprimir la similitud de cada palabra clave con el texto
+for i, keyword in enumerate(keywords):
+    print(f"Similitud de '{keyword.strip()}': {cosine_similarities[i]}")
